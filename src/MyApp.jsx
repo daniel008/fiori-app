@@ -5,6 +5,7 @@ import '@ui5/webcomponents-icons/dist/line-chart.js';
 import '@ui5/webcomponents-icons/dist/horizontal-bar-chart.js';
 import "@ui5/webcomponents-icons/dist/add.js";
 import '@ui5/webcomponents-icons/dist/list.js'
+import "@ui5/webcomponents-icons/dist/table-view.js";
 import {
   Avatar,
   Card,
@@ -59,6 +60,25 @@ const dataset = [
   }
 ];
 
+const tableColumns = [
+  {
+    Header: "Name",
+    accessor: "name" // String-based value accessors!
+  },
+  {
+    Header: "Age",
+    accessor: "age"
+  },
+  {
+    Header: "Friend Name",
+    accessor: "friend.name"
+  },
+  {
+    Header: "Friend Age",
+    accessor: "friend.age"
+  }
+];
+
 export function MyApp() {
   const [toggleCharts, setToggleCharts] = useState('lineChart')
   const [loading, setLoading] = useState(false)
@@ -83,6 +103,16 @@ export function MyApp() {
      }
   }
 
+  const tableData = new Array(200).fill(null).map((_, index) => {
+    return {
+      name: `nam${index}`,
+      age: Math.floor(Math.random() * 100),
+      friend: {
+        name: `friend.Name${index}`,
+        age: Math.floor(Math.random() * 100)
+      }
+    }
+  })
 
   return (
   <div>
@@ -155,6 +185,17 @@ export function MyApp() {
           </FlexBox>
         </StandardListItem>
       </List>
+    </Card>
+    <Card
+      header={
+        <CardHeader
+          titleText="AnalyticalTable"
+          avatar={<Icon name="table-view" />}
+        />
+      }
+      style={{maxWidth: "900px"}}
+    >
+      <AnalyticalTable data={tableData}  columns={tableColumns} visibleRows={5}/>
     </Card>
   </div>
   );
