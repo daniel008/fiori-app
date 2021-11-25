@@ -1,7 +1,7 @@
 import React from 'react'
 import {Title} from "@ui5/webcomponents-react"
 
-const Detail = () => {
+export const Detail = () => {
   return (
     <Title>
       Hello World!
@@ -9,4 +9,4 @@ const Detail = () => {
   )
 }
 
-export default Detail
+ 

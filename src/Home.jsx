@@ -74,7 +74,7 @@ const tableColumns = [
   }
 ];
 
-function Home() {
+export function Home() {
 
   const [toggleCharts, setToggleCharts] = useState('lineChart')
   const [loading, setLoading] = useState(false)
@@ -111,11 +111,11 @@ function Home() {
   })
 
   return (
-    <div>
-      <FlexBox
-        justifyContent={FlexBoxJustifyContent.Center}
-        wrap={FlexBoxWrap.Wrap}
-        style={spacing.sapUiContentPadding}
+  <div>
+    <FlexBox
+      justifyContent={FlexBoxJustifyContent.Center}
+      wrap={FlexBoxWrap.Wrap}
+      style={spacing.sapUiContentPadding}
     >
       <Card 
         header={
@@ -191,8 +191,7 @@ function Home() {
         <AnalyticalTable data={tableData}  columns={tableColumns} visibleRows={5}/>
       </Card>
     </FlexBox>
-    </div>
+  </div>
   )
 }
 
-export default Home
