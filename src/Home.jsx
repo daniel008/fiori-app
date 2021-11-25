@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {spacing} from '@ui5/webcomponents-react-base'
 import {BarChart, LineChart} from '@ui5/webcomponents-react-charts'
+import {useNavigate} from 'react-router-dom';
 import "@ui5/webcomponents-icons/dist/add.js";
 import '@ui5/webcomponents-icons/dist/line-chart.js';
 import '@ui5/webcomponents-icons/dist/horizontal-bar-chart.js';
@@ -55,6 +56,17 @@ const dataset = [
   }
 ];
 
+const tableData = new Array(200).fill(null).map((_, index) => {
+  return {
+    name: `nam${index}`,
+    age: Math.floor(Math.random() * 100),
+    friend: {
+      name: `friend.Name${index}`,
+      age: Math.floor(Math.random() * 100)
+    }
+  }
+})
+
 const tableColumns = [
   {
     Header: "Name",
@@ -79,9 +91,13 @@ export function Home() {
   const [toggleCharts, setToggleCharts] = useState('lineChart')
   const [loading, setLoading] = useState(false)
 
+  const navigate = useNavigate();
+  const handleProgressHeaderClick = () => {
+    navigate("/detail");
+  }
+  
   const contentTitle = toggleCharts === 'lineChart' ? 'Line Chart' : 'Bar Chart'
   const switchToChart = toggleCharts === 'lineChart' ? 'Bar Chart' : 'Line Chart'
-
   const handleHeaderClick = () => {
      if (toggleCharts === 'lineChart'){
        setLoading(true)
@@ -98,17 +114,6 @@ export function Home() {
         }, 1000)
      }
   }
-
-  const tableData = new Array(200).fill(null).map((_, index) => {
-    return {
-      name: `nam${index}`,
-      age: Math.floor(Math.random() * 100),
-      friend: {
-        name: `friend.Name${index}`,
-        age: Math.floor(Math.random() * 100)
-      }
-    }
-  })
 
   return (
   <div>
@@ -154,6 +159,8 @@ export function Home() {
             titleText="Progress"
             subtitleText="List"
             avatar={<Icon name="list" />}
+            interactive
+            onClick={handleProgressHeaderClick}
           />
         }
         style={{width: "300px", ...spacing.sapUiContentPadding}}
