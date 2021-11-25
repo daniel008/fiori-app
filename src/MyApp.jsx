@@ -1,9 +1,30 @@
 import React, {useState} from "react";
-import {Card, CardHeader, Text, Icon} from "@ui5/webcomponents-react"
 import {spacing} from "@ui5/webcomponents-react-base"
 import { BarChart, LineChart } from "@ui5/webcomponents-react-charts";
 import '@ui5/webcomponents-icons/dist/line-chart.js';
 import '@ui5/webcomponents-icons/dist/horizontal-bar-chart.js';
+import "@ui5/webcomponents-icons/dist/add.js";
+import '@ui5/webcomponents-icons/dist/list.js'
+import {
+  Avatar,
+  Card,
+  CardHeader,
+  Text,
+  ShellBar,
+  ShellBarItem,
+  List,
+  StandardListItem,
+  ValueState,
+  ProgressIndicator,
+  Title,
+  TitleLevel,
+  FlexBox,
+  FlexBoxJustifyContent,
+  FlexBoxWrap,
+  FlexBoxDirection,
+  AnalyticalTable,
+  Icon
+} from "@ui5/webcomponents-react";
 
 
 
@@ -42,6 +63,9 @@ export function MyApp() {
   const [toggleCharts, setToggleCharts] = useState('lineChart')
   const [loading, setLoading] = useState(false)
 
+  const contentTitle = toggleCharts === 'lineChart' ? 'Line Chart' : 'Bar Chart'
+  const switchToChart = toggleCharts === 'lineChart' ? 'Bar Chart' : 'Line Chart'
+
   const handleHeaderClick = () => {
      if (toggleCharts === 'lineChart'){
        setLoading(true)
@@ -59,11 +83,19 @@ export function MyApp() {
      }
   }
 
-  const contentTitle = toggleCharts === 'lineChart' ? 'Line Chart' : 'Bar Chart'
-  const switchToChart = toggleCharts === 'lineChart' ? 'Bar Chart' : 'Line Chart'
 
   return (
   <div>
+    <ShellBar 
+      logo={<img src="reactLogo.png" alt="logo" />} 
+      profile={
+      <Avatar>
+        <img src="profilePictureExample.png"  alt="profile" />
+      </Avatar>}
+      primaryTitle="Daniel's App"
+    >
+      <ShellBarItem icon="add" text="Add" />
+    </ShellBar>
     <Card 
       header={
         <CardHeader 
@@ -92,6 +124,37 @@ export function MyApp() {
         loading={loading}
        />
       )}
+    </Card>
+    <Card
+      header={
+        <CardHeader
+          titleText="Progress"
+          subtitleText="List"
+          avatar={<Icon name="list" />}
+        />
+      }
+      style={{width: "300px"}}
+    >
+      <List>
+        <StandardListItem additionalText="finished" additionalTextState={ValueState.Success} >
+          Activity 1
+        </StandardListItem>
+        <StandardListItem additionalText="failed" additionalTextState={ValueState.Error} >
+          Activity 2
+        </StandardListItem>
+        <StandardListItem additionalText="in progress" additionalTextState={ValueState.Warning} style={{height: "80px"}} >
+          <FlexBox direction={FlexBoxDirection.Column} >
+            <Title level={TitleLevel.H5} >Activity 3</Title>
+            <ProgressIndicator value={89} valueState={ValueState.Success} />
+          </FlexBox>
+        </StandardListItem>
+        <StandardListItem additionalText="in progress" additionalTextState={ValueState.Warning} style={{height: "80px"}}>
+          <FlexBox direction={FlexBoxDirection.Column} >
+          <Title level={TitleLevel.H5} > Activity 4</Title>
+          <ProgressIndicator value={5}  valueState={ValueState.Error}/>
+          </FlexBox>
+        </StandardListItem>
+      </List>
     </Card>
   </div>
   );
